@@ -56,6 +56,17 @@ public class BookServiceImp implements BookService {
     }
 
     @Override
+    @Transactional(rollbackFor = ServiceException.class)
+    public BookDTO updateBook(int bookId, BookDTO bookDTO) throws ServiceException {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ServiceException("Book not found for id - " + bookId, HttpStatus.NOT_FOUND));
+        book.setTitle(bookDTO.getTitle());
+        book.setIsbn(bookDTO.getIsbn());
+        book.setPubYear(bookDTO.getPubYear());
+        return libraryMapper.toBookDTO(bookRepository.save(book));
+    }
+
+    @Override
     @Transactional
     public void assignBookToLib(int bookId, int libId) throws ServiceException {
         Lib lib = libRepository.findById(libId)

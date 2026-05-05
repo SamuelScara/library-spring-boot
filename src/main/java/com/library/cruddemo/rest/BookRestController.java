@@ -53,6 +53,13 @@ public class BookRestController {
     }
 
 
+    // ====== PUT MAPPINGS ======
+
+    @PutMapping("/books/{bookId}")
+    public ResponseEntity<BookDTO> updateBook(@PathVariable int bookId, @RequestBody BookDTO bookDTO) throws ServiceException {
+        return ResponseEntity.ok(bookService.updateBook(bookId, bookDTO));
+    }
+
     // ====== DELETE MAPPINGS ======
 
     @DeleteMapping("/books/{bookId}")

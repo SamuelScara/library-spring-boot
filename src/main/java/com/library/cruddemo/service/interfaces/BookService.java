@@ -13,6 +13,8 @@ public interface BookService {
 
     BookDTO saveBook(BookDTO bookDTO) throws ServiceException;
 
+    BookDTO updateBook(int bookId, BookDTO bookDTO) throws ServiceException;
+
     void assignBookToLib(int bookId, int libId) throws ServiceException;
 
     void unassignBookFromLib(int bookId, int libId) throws ServiceException;

@@ -43,8 +43,8 @@ public class AuthorRestController {
     // ====== DELETE MAPPINGS ======
 
     @DeleteMapping("/authors/{authorId}")
-    public ResponseEntity<String> deleteAuthorById(@PathVariable int authorId) throws ServiceException {
+    public ResponseEntity<Void> deleteAuthorById(@PathVariable int authorId) throws ServiceException {
         authorService.deleteAuthorById(authorId);
-        return ResponseEntity.ok().body("Deleted author with id - " + authorId);
+        return ResponseEntity.noContent().build();
     }
 }
