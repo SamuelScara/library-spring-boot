@@ -121,6 +121,8 @@ public class BookServiceImp implements BookService {
     public void deleteBookById(int bookId) throws ServiceException {
         Book toDelete = bookRepository.findById(bookId)
                 .orElseThrow(() -> new ServiceException("Book not found for id - " + bookId, HttpStatus.NOT_FOUND));
+        toDelete.getSimulationEntries().clear();
+        bookRepository.saveAndFlush(toDelete);
         bookRepository.delete(toDelete);
     }
 }

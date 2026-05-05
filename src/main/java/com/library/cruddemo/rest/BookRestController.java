@@ -56,9 +56,9 @@ public class BookRestController {
     // ====== DELETE MAPPINGS ======
 
     @DeleteMapping("/books/{bookId}")
-    public ResponseEntity<String> deleteBook(@PathVariable int bookId) throws ServiceException {
+    public ResponseEntity<Void> deleteBook(@PathVariable int bookId) throws ServiceException {
         bookService.deleteBookById(bookId);
-        return ResponseEntity.ok("Deleted Book with id - " + bookId);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/libs/{libId}/books/{bookId}")

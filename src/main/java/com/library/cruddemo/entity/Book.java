@@ -32,6 +32,10 @@ public class Book {
     @ManyToMany(mappedBy = "books")
     private List<Lib> libraries = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SimulationEntry> simulationEntries = new ArrayList<>();
+
     @ManyToMany
     @JoinTable(
             name = "book_author",
@@ -95,6 +99,14 @@ public class Book {
 
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
+    }
+
+    public List<SimulationEntry> getSimulationEntries() {
+        return simulationEntries;
+    }
+
+    public void setSimulationEntries(List<SimulationEntry> simulationEntries) {
+        this.simulationEntries = simulationEntries;
     }
 
     @Override
