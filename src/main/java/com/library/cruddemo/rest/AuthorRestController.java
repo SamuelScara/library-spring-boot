@@ -40,6 +40,13 @@ public class AuthorRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(authorService.saveAuthor(authorDTO));
     }
 
+    // ====== PUT MAPPINGS ======
+
+    @PutMapping("/authors/{authorId}")
+    public ResponseEntity<AuthorDTO> updateAuthor(@PathVariable int authorId, @RequestBody AuthorDTO authorDTO) throws ServiceException {
+        return ResponseEntity.ok(authorService.updateAuthor(authorId, authorDTO));
+    }
+
     // ====== DELETE MAPPINGS ======
 
     @DeleteMapping("/authors/{authorId}")

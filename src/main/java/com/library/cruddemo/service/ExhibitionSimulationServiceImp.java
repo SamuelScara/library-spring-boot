@@ -114,4 +114,34 @@ public class ExhibitionSimulationServiceImp implements ExhibitionSimulationServi
                 ranking
         );
     }
+
+    @Override
+    @Transactional(rollbackFor = ServiceException.class)
+    public ExhibitionSimulationDTO updateExhibitionSimulation(int id, ExhibitionSimulationDTO dto) throws ServiceException {
+        ExhibitionSimulation simulation = exhibitionSimulationRepository.findById(id)
+                .orElseThrow(() -> new ServiceException("Exhibition not found for id - " + id, HttpStatus.NOT_FOUND));
+
+        Lib lib = libRepository.findById(dto.getLibId())
+                .orElseThrow(() -> new ServiceException("Library not found for id - " + dto.getLibId(), HttpStatus.NOT_FOUND));
+
+        simulation.setTitle(dto.getTitle());
+        simulation.setStartDate(dto.getStartDate());
+        simulation.setEndDate(dto.getEndDate());
+        simulation.setSimulationDate(dto.getSimulationDate());
+        simulation.setLib(lib);
+
+        simulation.getEntries().clear();
+        List<Book> books = bookRepository.findAllById(dto.getBookIds());
+        books.forEach(book -> simulation.getEntries().add(new SimulationEntry(simulation, 0, 0, book)));
+
+        return libraryMapper.toExhibitionSimulationDTO(exhibitionSimulationRepository.save(simulation));
+    }
+
+    @Override
+    @Transactional(rollbackFor = ServiceException.class)
+    public void deleteExhibitionSimulation(int id) throws ServiceException {
+        ExhibitionSimulation simulation = exhibitionSimulationRepository.findById(id)
+                .orElseThrow(() -> new ServiceException("Exhibition not found for id - " + id, HttpStatus.NOT_FOUND));
+        exhibitionSimulationRepository.delete(simulation);
+    }
 }

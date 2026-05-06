@@ -47,4 +47,20 @@ public class ExhibitionSimulationRestController {
     public ResponseEntity<SimulationResponseDTO> simulate(@PathVariable int id) throws ServiceException {
         return ResponseEntity.ok(exhibitionSimulationService.simulateExhibition(id));
     }
+
+    // ====== PUT MAPPINGS ======
+
+    @PutMapping("/exhibition-simulations/{id}")
+    public ResponseEntity<ExhibitionSimulationDTO> updateExhibitionSimulation(
+            @PathVariable int id, @Valid @RequestBody ExhibitionSimulationDTO dto) throws ServiceException {
+        return ResponseEntity.ok(exhibitionSimulationService.updateExhibitionSimulation(id, dto));
+    }
+
+    // ====== DELETE MAPPINGS ======
+
+    @DeleteMapping("/exhibition-simulations/{id}")
+    public ResponseEntity<String> deleteExhibitionSimulation(@PathVariable int id) throws ServiceException {
+        exhibitionSimulationService.deleteExhibitionSimulation(id);
+        return ResponseEntity.ok("Deleted exhibition with id - " + id);
+    }
 }

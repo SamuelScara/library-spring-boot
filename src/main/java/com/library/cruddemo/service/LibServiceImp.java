@@ -51,6 +51,17 @@ public class LibServiceImp implements LibService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
+    public LibDTO updateLib(int libId, LibDTO libDTO) throws ServiceException {
+        Lib lib = libRepository.findById(libId)
+                .orElseThrow(() -> new ServiceException("Lib not found for id - " + libId, HttpStatus.NOT_FOUND));
+        lib.setName(libDTO.getName());
+        lib.setCity(libDTO.getCity());
+        lib.setAddress(libDTO.getAddress());
+        return libraryMapper.toLibDTO(libRepository.save(lib));
+    }
+
+    @Override
+    @Transactional(rollbackFor = ServiceException.class)
     public void deleteLibById(int libId) throws ServiceException {
         Lib toDelete = libRepository.findById(libId)
                 .orElseThrow(() -> new ServiceException("Lib not found for id - " + libId, HttpStatus.NOT_FOUND));

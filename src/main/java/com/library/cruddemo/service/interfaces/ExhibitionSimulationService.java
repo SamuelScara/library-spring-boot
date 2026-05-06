@@ -15,4 +15,8 @@ public interface ExhibitionSimulationService {
     ExhibitionSimulationDTO saveExhibitionSimulation(ExhibitionSimulationDTO dto) throws ServiceException;
 
     SimulationResponseDTO simulateExhibition(int id) throws ServiceException;
+
+    ExhibitionSimulationDTO updateExhibitionSimulation(int id, ExhibitionSimulationDTO dto) throws ServiceException;
+
+    void deleteExhibitionSimulation(int id) throws ServiceException;
 }

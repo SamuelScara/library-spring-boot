@@ -13,6 +13,8 @@ public interface LibService {
 
     LibDTO saveLib(LibDTO libDTO) throws ServiceException;
 
+    LibDTO updateLib(int libId, LibDTO libDTO) throws ServiceException;
+
     void deleteLibById(int libId) throws ServiceException;
 
 }

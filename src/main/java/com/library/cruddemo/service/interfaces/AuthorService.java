@@ -13,5 +13,7 @@ public interface AuthorService {
 
     AuthorDTO saveAuthor(AuthorDTO authorDTO) throws ServiceException;
 
+    AuthorDTO updateAuthor(int authorId, AuthorDTO authorDTO) throws ServiceException;
+
     void deleteAuthorById(int id) throws ServiceException;
 }

@@ -52,6 +52,17 @@ public class AuthorServiceImp implements AuthorService {
 
     @Override
     @Transactional(rollbackFor = ServiceException.class)
+    public AuthorDTO updateAuthor(int authorId, AuthorDTO authorDTO) throws ServiceException {
+        Author author = authorRepository.findById(authorId)
+                .orElseThrow(() -> new ServiceException("Author with id - " + authorId + " not found", HttpStatus.NOT_FOUND));
+        author.setFirstName(authorDTO.getFirstName());
+        author.setLastName(authorDTO.getLastName());
+        author.setNationality(authorDTO.getNationality());
+        return libraryMapper.toAuthorDTO(authorRepository.save(author));
+    }
+
+    @Override
+    @Transactional(rollbackFor = ServiceException.class)
     public void deleteAuthorById(int id) throws ServiceException {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ServiceException("Author with id - " + id + " not found", HttpStatus.NOT_FOUND));

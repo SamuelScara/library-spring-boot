@@ -40,6 +40,13 @@ public class LibRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(libService.saveLib(libDTO));
     }
     
+    // ====== PUT MAPPINGS ======
+
+    @PutMapping("/libs/{libId}")
+    public ResponseEntity<LibDTO> updateLib(@PathVariable int libId, @RequestBody LibDTO libDTO) throws ServiceException {
+        return ResponseEntity.ok(libService.updateLib(libId, libDTO));
+    }
+
     // ====== DELETE MAPPINGS ======
 
     @DeleteMapping("/libs/{libId}")
